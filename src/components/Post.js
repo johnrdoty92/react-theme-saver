@@ -1,4 +1,5 @@
 import { StyledPost, FullContainer } from "./StyledComponents";
+import CodeBlock from "./CodeBlock";
 
 const Post = () => {
   return (
@@ -20,6 +21,7 @@ const Post = () => {
           accusantium reprehenderit, iste possimus quia omnis nesciunt numquam?
           Non quas nostrum optio?
         </p>
+        <CodeBlock />
       </StyledPost>
     </FullContainer>
   );

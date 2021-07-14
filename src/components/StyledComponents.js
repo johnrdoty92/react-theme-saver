@@ -95,3 +95,13 @@ export const StyledForm = styled.form`
 export const StyledPost = styled.div`
   padding: 1rem;
 `;
+
+export const StyledTextBlock = styled.div`
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 5px;
+  border-left: 5px solid ${(props) => props.borderColor};
+  background: ${(props) => props.bgColor};
+  color: ${(props) => props.textColor};
+`;
