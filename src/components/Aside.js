@@ -1,9 +1,9 @@
 import { StyledAside, FullContainer } from "./StyledComponents";
 
-const Aside = () => {
+const Aside = (props) => {
   return (
     <FullContainer area="aside">
-      <StyledAside>
+      <StyledAside bgColor={props.bgColor}>
         <div>
           <h2>Blog Post #1</h2>
           <p>Description</p>

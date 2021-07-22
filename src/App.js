@@ -21,17 +21,19 @@ class App extends Component {
       textColor: "",
     };
   }
-  handleChange = async (event) => {
+  handleChange = (event) => {
     let parsedColor = parseRGB(event.target.value);
-    let [r, g, b] = parsedColor;
 
-    await this.setState({
+    this.setState({
       theme: event.target.value,
-      highlight1: brighten(parsedColor, 5),
-      highlight2: brighten(parsedColor, 10),
-      shadow1: darken(parsedColor, 5),
-      shadow2: darken(parsedColor, 10),
-      textColor: r + g + b < 200 ? "white" : "black",
+      highlight1: adjustLuminosity(parsedColor, 0.75),
+      highlight2: adjustLuminosity(parsedColor, 0.25),
+      shadow1: adjustLuminosity(parsedColor, -0.75),
+      shadow2: adjustLuminosity(parsedColor, -0.25),
+      textColor:
+        parsedColor[0] + parsedColor[1] + parsedColor[2] < 400
+          ? "white"
+          : "black",
     });
     // console.log(document.forms.controller.elements["type"].value);
   };
@@ -40,21 +42,32 @@ class App extends Component {
     return (
       <MainContainer>
         <GlobalStyle />
-        <Header bgColor={this.state.theme} header={this.state.themeName} />
-        <Navbar
+        <Header
           textColor={this.state.textColor}
-          bgColor={this.state.themeSub2}
+          bgColor={this.state.theme}
+          header={this.state.themeName}
+        />
+        <Navbar
+          active={this.state.highlight1}
+          textColor={this.state.textColor}
+          bgColor={this.state.shadow2}
         />
         <Controller
           onChange={this.handleChange}
           currentColor={this.state.theme}
+          bgColor={this.state.highlight1}
+          textColor={this.state.textColor}
         />
-        <Aside bgColor={this.state.highlight1} />
+        <Aside
+          bgColor={this.state.highlight1}
+          textColor={this.state.textColor}
+        />
         <Post
           bgColor={this.state.highlight1}
           borderColor={this.state.shadow2}
+          textColor={this.state.textColor}
         />
-        <Footer bgColor={this.state.themeSub2} />
+        <Footer bgColor={this.state.shadow2} />
       </MainContainer>
     );
   }
@@ -67,22 +80,18 @@ function parseRGB(hexColor) {
   return [r, g, b];
 }
 
-function brighten(rgbArray, scale) {
+function adjustLuminosity(rgbArray, scale) {
   const newColor = rgbArray.map((colorVal) => {
-    return Math.floor(colorVal + (255 - colorVal) / scale);
+    let c = Math.round(
+      Math.min(Math.max(0, colorVal + colorVal * scale), 255)
+    ).toString(16);
+    if (c.length < 2) {
+      return "0" + c;
+    } else {
+      return c;
+    }
   });
-  let newHex = "#";
-  newColor.forEach((rgbValue) => (newHex += rgbValue.toString(16)));
-  return newHex;
-}
-
-function darken(rgbArray, scale) {
-  const newColor = rgbArray.map((colorVal) => {
-    return Math.floor(colorVal - colorVal / scale);
-  });
-  let newHex = "#";
-  newColor.forEach((rgbValue) => (newHex += rgbValue.toString(16)));
-  return newHex;
+  return "#" + newColor.join("");
 }
 
 export default App;

@@ -3,7 +3,11 @@ import { FullContainer, StyledForm } from "./StyledComponents";
 const Controller = (props) => {
   return (
     <FullContainer area="controller">
-      <StyledForm name="controller">
+      <StyledForm
+        bgColor={props.bgColor}
+        textColor={props.textColor}
+        name="controller"
+      >
         <div>
           <input
             id="SingleTone"

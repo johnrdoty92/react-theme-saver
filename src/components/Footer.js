@@ -1,10 +1,10 @@
-import { FullContainer } from "./StyledComponents";
+import { StyledFooter } from "./StyledComponents";
 
 const Footer = () => {
   return (
-    <FullContainer area="footer">
-      <h3>John Doty</h3>
-    </FullContainer>
+    <StyledFooter area="footer">
+      <h3>Created by John Doty</h3>
+    </StyledFooter>
   );
 };
 

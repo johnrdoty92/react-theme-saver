@@ -49,6 +49,7 @@ export const StyledHeader = styled.h1`
   align-self: flex-end;
   width: max(90%, 35rem);
   text-align: center;
+  color: ${(props) => props.textColor};
 `;
 
 export const StyledNavbar = styled.ul`
@@ -60,19 +61,35 @@ export const StyledNavbar = styled.ul`
   justify-content: flex-end;
   grid-area: nav;
   margin: 0;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
 `;
 
 export const NavItem = styled.li`
   display: block;
   margin: 0 1rem 0 1rem;
+
+  a {
+    color: ${(props) => props.textColor};
+    text-decoration: none;
+    transition: 0.25s ease;
+  }
+  a:hover {
+    color: ${(props) => props.active};
+  }
+  a:active {
+    color: ${(props) => props.textColor};
+  }
 `;
 
 export const StyledAside = styled.aside`
   width: 90%;
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: 0 0 3px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.1);
+  margin: 1rem 1.5rem 1.5rem 1.5rem;
+  background: ${(props) => props.bgColor};
 `;
 
 export const StyledForm = styled.form`
@@ -82,8 +99,10 @@ export const StyledForm = styled.form`
   flex-flow: column nowrap;
   padding: 1rem;
   border-radius: 5px;
-  box-shadow: 0 0 3px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
+  box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.1);
+  margin: 1.5rem 1.5rem 0 1.5rem;
+  background: ${(props) => props.bgColor};
+  color: ${(props) => props.textColor};
 
   & * {
     margin: 0.2rem 0;
@@ -102,4 +121,15 @@ export const StyledTextBlock = styled.div`
   border-left: 5px solid ${(props) => props.borderColor};
   background: ${(props) => props.bgColor};
   color: ${(props) => props.textColor};
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+`;
+
+export const StyledFooter = styled.footer`
+  width: 100%;
+  grid-area: footer;
+
+  * {
+    text-align: center;
+    width: 100%;
+  }
 `;

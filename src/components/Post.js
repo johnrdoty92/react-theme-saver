@@ -5,45 +5,30 @@ const Post = (props) => {
   return (
     <FullContainer area="post">
       <StyledPost>
-        <h2>Blog Post</h2>
-        <p>Description</p>
+        <h2>Theme Saver</h2>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo
-          delectus beatae voluptates dolor, vero harum totam perspiciatis et
-          aperiam dolorem possimus est consequatur id vel in? Neque quibusdam
-          accusantium reprehenderit, iste possimus quia omnis nesciunt numquam?
-          Non quas nostrum optio?
-        </p>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo
-          delectus beatae voluptates dolor, vero harum totam perspiciatis et
-          aperiam dolorem possimus est consequatur id vel in? Neque quibusdam
-          accusantium reprehenderit, iste possimus quia omnis nesciunt numquam?
-          Non quas nostrum optio?
-        </p>
-        <CodeBlock />
-        <h2>Header</h2>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi dicta
-          culpa eius ab placeat inventore porro voluptate, officiis explicabo
-          itaque!
+          Welcome! This simple web app is for anyone who is deciding on a color
+          theme for their website. Watch the page update automatically as you
+          choose colors!
         </p>
         <StyledTextBlock
           bgColor={props.bgColor}
           borderColor={props.borderColor}
+          textColor={props.textColor}
         >
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
-            alias.
+            If you find a theme that you like, you can copy and paste the color
+            values or save them under a new name.
           </p>
         </StyledTextBlock>
+
+        <h2>Easily Visualize Colors</h2>
+        <CodeBlock />
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
-          veritatis nulla eaque consectetur ullam deserunt voluptas recusandae!
-          Sint, aliquid iure adipisci vero voluptate expedita accusantium hic
-          dignissimos, illo eos non inventore ex corporis quod rerum amet
-          molestias suscipit pariatur numquam consectetur, nostrum recusandae.
-          Veniam rerum incidunt magnam corporis! Laborum, mollitia?
+          Choose either a single tone or complimentary look. This app was
+          created with <b>React.js</b> and <b>styled-components</b>. Themes are
+          saved with localStorage, so be sure to come back on this device or
+          copy and paste the colors elsewhere.
         </p>
       </StyledPost>
     </FullContainer>
