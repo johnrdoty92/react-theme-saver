@@ -8,6 +8,8 @@ const Controller = (props) => {
         textColor={props.textColor}
         name="controller"
       >
+        <h4>Choose a color:</h4>
+        <input type="color" onChange={props.onChange} />
         <div>
           <input
             id="SingleTone"
@@ -27,8 +29,6 @@ const Controller = (props) => {
           />
           <label for="Complementary">Complementary</label>
         </div>
-        <p>Choose a color:</p>
-        <input type="color" onChange={props.onChange} />
         <p>Current color: {props.currentColor}</p>
         <button type="submit">Save Preset</button>
       </StyledForm>

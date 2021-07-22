@@ -18,6 +18,7 @@ class App extends Component {
       highlight2: "",
       shadow1: "",
       shadow2: "",
+      faded: "",
       textColor: "",
     };
   }
@@ -30,6 +31,7 @@ class App extends Component {
       highlight2: adjustLuminosity(parsedColor, 0.25),
       shadow1: adjustLuminosity(parsedColor, -0.75),
       shadow2: adjustLuminosity(parsedColor, -0.25),
+      faded: adjustSaturation(parsedColor, 0.5),
       textColor:
         parsedColor[0] + parsedColor[1] + parsedColor[2] < 400
           ? "white"
@@ -55,16 +57,13 @@ class App extends Component {
         <Controller
           onChange={this.handleChange}
           currentColor={this.state.theme}
-          bgColor={this.state.highlight1}
+          bgColor={this.state.faded}
           textColor={this.state.textColor}
         />
-        <Aside
-          bgColor={this.state.highlight1}
-          textColor={this.state.textColor}
-        />
+        <Aside bgColor={this.state.faded} textColor={this.state.textColor} />
         <Post
-          bgColor={this.state.highlight1}
-          borderColor={this.state.shadow2}
+          highlight={this.state.highlight1}
+          shadow={this.state.shadow2}
           textColor={this.state.textColor}
         />
         <Footer bgColor={this.state.shadow2} />
@@ -80,16 +79,30 @@ function parseRGB(hexColor) {
   return [r, g, b];
 }
 
-function adjustLuminosity(rgbArray, scale) {
+function adjustLuminosity(rgbArray, percentage) {
   const newColor = rgbArray.map((colorVal) => {
     let c = Math.round(
-      Math.min(Math.max(0, colorVal + colorVal * scale), 255)
+      Math.min(Math.max(0, colorVal + colorVal * percentage), 255)
     ).toString(16);
     if (c.length < 2) {
       return "0" + c;
     } else {
       return c;
     }
+  });
+  return "#" + newColor.join("");
+}
+
+function adjustSaturation(rgbArray, percentage) {
+  let hex;
+  const max = Math.max(...rgbArray);
+  const newColor = rgbArray.map((colorVal) => {
+    if (max === colorVal) {
+      hex = colorVal.toString(16);
+    } else {
+      hex = Math.round(colorVal + (max - colorVal) * percentage).toString(16);
+    }
+    return hex.length < 2 ? "0" + hex : hex;
   });
   return "#" + newColor.join("");
 }

@@ -12,8 +12,8 @@ const Post = (props) => {
           choose colors!
         </p>
         <StyledTextBlock
-          bgColor={props.bgColor}
-          borderColor={props.borderColor}
+          bgColor={props.highlight}
+          borderColor={props.shadow}
           textColor={props.textColor}
         >
           <p>
@@ -23,7 +23,17 @@ const Post = (props) => {
         </StyledTextBlock>
 
         <h2>Easily Visualize Colors</h2>
-        <CodeBlock />
+        <StyledTextBlock
+          bgColor={props.shadow}
+          borderColor={props.highlight}
+          textColor={props.textColor}
+        >
+          <code>
+            const greeting = "Hello World!"
+            <br />
+            alert(greeting)
+          </code>
+        </StyledTextBlock>
         <p>
           Choose either a single tone or complimentary look. This app was
           created with <b>React.js</b> and <b>styled-components</b>. Themes are

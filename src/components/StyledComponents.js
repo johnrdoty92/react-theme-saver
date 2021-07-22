@@ -90,6 +90,7 @@ export const StyledAside = styled.aside`
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.1);
   margin: 1rem 1.5rem 1.5rem 1.5rem;
   background: ${(props) => props.bgColor};
+  color: ${(props) => props.textColor};
 `;
 
 export const StyledForm = styled.form`
@@ -106,6 +107,14 @@ export const StyledForm = styled.form`
 
   & * {
     margin: 0.2rem 0;
+  }
+  h4 {
+    text-align: center;
+    text-transform: uppercase;
+  }
+  input[type="color"] {
+    width: 80%;
+    height: 50px;
   }
 `;
 
