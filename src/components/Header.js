@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import { StyledHeader, FullContainer } from "./StyledComponents";
 
 export default function Header(props) {

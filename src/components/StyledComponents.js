@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
 
@@ -14,18 +13,17 @@ export const MainContainer = styled.div`
   height: 100vw;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 0.5fr 0.25fr 1fr 1fr 0.25fr;
+  grid-template-rows: 4em 2em 1fr 1fr 0.25fr;
   grid-template-areas:
     "header header"
     "nav nav"
     "controller post"
     "aside post"
     "footer footer";
-  grid-gap: 0.2rem;
 
   @media only screen and (max-width: 500px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 0.25fr 0.5fr 2fr 1fr 0.25fr;
+    grid-template-rows: 4em 2em 0.5fr 2fr 1fr 0.25fr;
     grid-template-areas:
       "header"
       "nav"
@@ -46,7 +44,7 @@ export const FullContainer = styled.div`
 
 export const StyledHeader = styled.h1`
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   display: block;
   align-self: flex-end;
   width: max(90%, 35rem);

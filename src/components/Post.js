@@ -1,7 +1,7 @@
-import { StyledPost, FullContainer } from "./StyledComponents";
+import { StyledTextBlock, StyledPost, FullContainer } from "./StyledComponents";
 import CodeBlock from "./CodeBlock";
 
-const Post = () => {
+const Post = (props) => {
   return (
     <FullContainer area="post">
       <StyledPost>
@@ -22,6 +22,29 @@ const Post = () => {
           Non quas nostrum optio?
         </p>
         <CodeBlock />
+        <h2>Header</h2>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi dicta
+          culpa eius ab placeat inventore porro voluptate, officiis explicabo
+          itaque!
+        </p>
+        <StyledTextBlock
+          bgColor={props.bgColor}
+          borderColor={props.borderColor}
+        >
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
+            alias.
+          </p>
+        </StyledTextBlock>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+          veritatis nulla eaque consectetur ullam deserunt voluptas recusandae!
+          Sint, aliquid iure adipisci vero voluptate expedita accusantium hic
+          dignissimos, illo eos non inventore ex corporis quod rerum amet
+          molestias suscipit pariatur numquam consectetur, nostrum recusandae.
+          Veniam rerum incidunt magnam corporis! Laborum, mollitia?
+        </p>
       </StyledPost>
     </FullContainer>
   );

@@ -1,6 +1,5 @@
 import React from "react";
-import styled from "styled-components";
-import { StyledTextBlock, FullContainer } from "./StyledComponents";
+import { StyledTextBlock } from "./StyledComponents";
 
 const CodeBlock = (props) => {
   return (
