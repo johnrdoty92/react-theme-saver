@@ -28,16 +28,16 @@ class App extends Component {
     const parsedColor = hexToRGB(event.target.value);
     const highlight1 = adjustLuminosity(parsedColor, 0.75);
     const shadow1 = adjustLuminosity(parsedColor, -0.75);
+    const inverted = invertColor(parsedColor);
+    
     const mode = document.forms.controller.elements["type"].value;
 
     const highlight2 =
-      mode === "Complementary"
-        ? invertColor(parsedColor)
-        : adjustLuminosity(parsedColor, 0.25);
+      mode === "Complementary" ? inverted : adjustLuminosity(parsedColor, 0.25);
 
     const shadow2 =
       mode === "Complementary"
-        ? invertColor(hexToRGB(shadow1))
+        ? adjustLuminosity(hexToRGB(inverted), -0.25)
         : adjustLuminosity(parsedColor, -0.25);
 
     this.setState({
@@ -78,18 +78,6 @@ function hexToRGB(hexColor) {
   let g = parseInt(hexColor.slice(3, 5), 16);
   let b = parseInt(hexColor.slice(5), 16);
   return [r, g, b];
-}
-
-function rgbToHex(rgbArray) {
-  let hex = "#";
-  rgbArray.forEach((colorVal) => {
-    let c = colorVal.toString(16);
-    if (c.length < 2) {
-      c = "0" + c;
-    }
-    hex += c;
-  });
-  return hex;
 }
 
 function adjustLuminosity(rgbArray, percentage) {
