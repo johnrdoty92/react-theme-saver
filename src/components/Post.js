@@ -12,9 +12,9 @@ const Post = (props) => {
           choose colors!
         </p>
         <StyledTextBlock
-          bgColor={props.highlight}
-          borderColor={props.shadow}
-          textColor={props.textColor}
+          bgColor={props.colors.highlight2}
+          borderColor={props.colors.shadow2}
+          textColor={props.colors.textColor}
         >
           <p>
             If you find a theme that you like, you can copy and paste the color
@@ -24,9 +24,9 @@ const Post = (props) => {
 
         <h2>Easily Visualize Colors</h2>
         <StyledTextBlock
-          bgColor={props.shadow}
-          borderColor={props.highlight}
-          textColor={props.textColor}
+          bgColor={props.colors.shadow2}
+          borderColor={props.colors.highlight2}
+          textColor={props.colors.highlight1}
         >
           <code>
             const greeting = "Hello World!"

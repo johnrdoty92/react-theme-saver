@@ -1,8 +1,8 @@
 import { StyledFooter } from "./StyledComponents";
 
-const Footer = () => {
+const Footer = (props) => {
   return (
-    <StyledFooter area="footer">
+    <StyledFooter bgColor={props.colors.theme} textColor={props.colors.textColor} area="footer">
       <h3>Created by John Doty</h3>
     </StyledFooter>
   );

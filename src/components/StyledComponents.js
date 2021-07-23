@@ -13,7 +13,7 @@ export const MainContainer = styled.div`
   height: 100vw;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 4em 2em 1fr 1fr 0.25fr;
+  grid-template-rows: 4em 2em auto auto 3em;
   grid-template-areas:
     "header header"
     "nav nav"
@@ -49,7 +49,7 @@ export const StyledHeader = styled.h1`
   align-self: flex-end;
   width: max(90%, 35rem);
   text-align: center;
-  color: ${(props) => props.textColor};
+  color: ${(props) => props.colors.textColor};
 `;
 
 export const StyledNavbar = styled.ul`
@@ -108,6 +108,23 @@ export const StyledForm = styled.form`
   & * {
     margin: 0.2rem 0;
   }
+  .radio-button {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+  }
+  .submit-area {
+    display: flex;
+
+    input {
+      border-radius: 5px 0px 0px 5px;
+      border: 1px solid black;
+    }
+    button {
+      border-radius: 0px 5px 5px 0px;
+      border: 1px solid black;
+    }
+  }
   h4 {
     text-align: center;
     text-transform: uppercase;
@@ -136,9 +153,30 @@ export const StyledTextBlock = styled.div`
 export const StyledFooter = styled.footer`
   width: 100%;
   grid-area: footer;
+  margin-top: 0.5em;
+  color: ${(props) => props.textColor};
+  background: ${(props) => props.bgColor};
 
   * {
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
     text-align: center;
     width: 100%;
+    margin: 0;
+  }
+`;
+
+export const ColorSwatch = styled.p`
+  ::after {
+    display: inline-block;
+    vertical-align: middle;
+    content: "";
+    width: 1em;
+    height: 1em;
+    margin-left: 8px;
+    border: 1px solid black;
+    background: ${(props) => props.color};
+    box-shadow: 2px 2px black;
   }
 `;
