@@ -1,9 +1,11 @@
 import { FullContainer, StyledForm, ColorSwatch } from "./StyledComponents";
+import DropdownList from "./DropdownList";
 
 const Controller = (props) => {
   return (
     <FullContainer area="controller">
       <StyledForm
+        onSubmit={props.onSubmit}
         bgColor={props.colors.faded}
         textColor={props.colors.textColor}
         name="controller"
@@ -49,9 +51,10 @@ const Controller = (props) => {
           Faded color: {props.colors.faded}
         </ColorSwatch>
         <div className="submit-area">
-          <input type="text" placeholder="Name your preset"></input>
+          <input required type="text" placeholder="Name your preset"></input>
           <button type="submit">Save Preset</button>
         </div>
+        <DropdownList />
       </StyledForm>
     </FullContainer>
   );

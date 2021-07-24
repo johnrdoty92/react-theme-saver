@@ -24,12 +24,27 @@ class App extends Component {
       },
     };
   }
+
+  handleSave = (event) => {
+    event.preventDefault();
+    console.log(event);
+    if (Object.keys(localStorage).includes(event.target[3].value)) {
+      alert("A theme with that name already exists.");
+      return;
+    }
+    this.setState({ themeName: event.target[3].value });
+    localStorage.setItem(
+      event.target[3].value,
+      JSON.stringify(this.state.colors)
+    );
+  };
+
   handleChange = (event) => {
     const parsedColor = hexToRGB(event.target.value);
     const highlight1 = adjustLuminosity(parsedColor, 0.75);
     const shadow1 = adjustLuminosity(parsedColor, -0.75);
     const inverted = invertColor(parsedColor);
-    
+
     const mode = document.forms.controller.elements["type"].value;
 
     const highlight2 =
@@ -54,7 +69,6 @@ class App extends Component {
             : "black",
       },
     });
-    // console.log(document.forms.controller.elements["type"].value);
   };
 
   render() {
@@ -64,7 +78,11 @@ class App extends Component {
         <GlobalStyle />
         <Header colors={colors} header={this.state.themeName} />
         <Navbar colors={colors} />
-        <Controller onChange={this.handleChange} colors={colors} />
+        <Controller
+          onSubmit={this.handleSave}
+          onChange={this.handleChange}
+          colors={colors}
+        />
         <Aside colors={colors} />
         <Post colors={colors} />
         <Footer colors={colors} />
