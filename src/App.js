@@ -40,6 +40,8 @@ class App extends Component {
   };
 
   handleChange = (event) => {
+    //const invert = document.forms.controller.elements["type"].value === "Complementary"
+    //const colors = new ThemeColors(event.target.value, invert)
     const parsedColor = hexToRGB(event.target.value);
     const highlight1 = adjustLuminosity(parsedColor, 0.75);
     const shadow1 = adjustLuminosity(parsedColor, -0.75);
