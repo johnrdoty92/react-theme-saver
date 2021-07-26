@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-theme-saver/static/css/main.0ec20263.chunk.css",
+    "main.js": "/react-theme-saver/static/js/main.2f164d2e.chunk.js",
+    "main.js.map": "/react-theme-saver/static/js/main.2f164d2e.chunk.js.map",
+    "runtime-main.js": "/react-theme-saver/static/js/runtime-main.de57a8e5.js",
+    "runtime-main.js.map": "/react-theme-saver/static/js/runtime-main.de57a8e5.js.map",
+    "static/js/2.61d4913e.chunk.js": "/react-theme-saver/static/js/2.61d4913e.chunk.js",
+    "static/js/2.61d4913e.chunk.js.map": "/react-theme-saver/static/js/2.61d4913e.chunk.js.map",
+    "static/js/3.75f4121b.chunk.js": "/react-theme-saver/static/js/3.75f4121b.chunk.js",
+    "static/js/3.75f4121b.chunk.js.map": "/react-theme-saver/static/js/3.75f4121b.chunk.js.map",
+    "index.html": "/react-theme-saver/index.html",
+    "static/css/main.0ec20263.chunk.css.map": "/react-theme-saver/static/css/main.0ec20263.chunk.css.map",
+    "static/js/2.61d4913e.chunk.js.LICENSE.txt": "/react-theme-saver/static/js/2.61d4913e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.de57a8e5.js",
+    "static/js/2.61d4913e.chunk.js",
+    "static/css/main.0ec20263.chunk.css",
+    "static/js/main.2f164d2e.chunk.js"
+  ]
+}
