@@ -3,7 +3,7 @@ import React from "react";
 const DropdownList = () => {
   if (localStorage) {
     const options = Object.keys(localStorage).map((key) => {
-      return <option>{key}</option>;
+      return <option key={key}>{key}</option>;
     });
     return (
       <React.Fragment>

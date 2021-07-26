@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
+import { getTextColor } from "../classes/ThemeColors";
 
 export const GlobalStyle = createGlobalStyle`
 
@@ -13,7 +14,7 @@ export const MainContainer = styled.div`
   height: 100vw;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 4em 2em auto auto 3em;
+  grid-template-rows: 4em 2em minmax(30em, 35em) minmax(20em, 25em) 3em;
   grid-template-areas:
     "header header"
     "nav nav"
@@ -34,33 +35,43 @@ export const MainContainer = styled.div`
   } ;
 `;
 
-export const FullContainer = styled.div`
+export const FullContainer = styled.div.attrs((props) => ({
+  style: {
+    background: props.bgColor,
+  },
+}))`
   width: 100%;
   display: flex;
   justify-content: center;
   grid-area: ${(props) => props.area};
-  background: ${(props) => props.bgColor};
 `;
 
-export const StyledHeader = styled.h1`
+export const StyledHeader = styled.h1.attrs((props) => ({
+  style: {
+    color: getTextColor(props.colors.theme),
+  },
+}))`
   margin: 0 auto;
   padding: 0.5rem 1rem;
   display: block;
   align-self: flex-end;
   width: max(90%, 35rem);
   text-align: center;
-  color: ${(props) => props.colors.textColor};
 `;
 
-export const StyledNavbar = styled.ul`
-  background: ${(props) => props.bgColor};
-  color: ${(props) => props.textColor};
+export const StyledNavbar = styled.ul.attrs((props) => ({
+  style: {
+    background: props.bgColor,
+    color: getTextColor(props.bgColor),
+  },
+}))`
   display: flex;
   flex-flow: row;
   align-items: center;
   justify-content: flex-end;
   grid-area: nav;
   margin: 0;
+  padding-right: 1em;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -68,32 +79,46 @@ export const StyledNavbar = styled.ul`
 
 export const NavItem = styled.li`
   display: block;
-  margin: 0 1rem 0 1rem;
-
+  height: 100%;
+  line-height: 2em;
   a {
-    color: ${(props) => props.textColor};
+    padding: 0 1em;
+    display: block;
+    height: 100%;
+    width: 100%;
+    color: inherit;
     text-decoration: none;
     transition: 0.25s ease;
   }
   a:hover {
-    color: ${(props) => props.active};
+    color: white;
+    background: rgba(0, 0, 0, 0.25);
   }
   a:active {
-    color: ${(props) => props.textColor};
+    color: black;
+    background: rgba(255, 255, 255, 0.25);
   }
 `;
 
-export const StyledAside = styled.aside`
+export const StyledAside = styled.aside.attrs((props) => ({
+  style: {
+    background: props.colors.faded,
+    color: getTextColor(props.colors.faded),
+  },
+}))`
   width: 90%;
   padding: 1rem;
   border-radius: 5px;
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.1);
   margin: 1rem 1.5rem 1.5rem 1.5rem;
-  background: ${(props) => props.bgColor};
-  color: ${(props) => props.textColor};
 `;
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.form.attrs((props) => ({
+  style: {
+    background: props.colors.faded,
+    color: getTextColor(props.colors.faded),
+  },
+}))`
   width: 90%;
   display: flex;
   align-items: center;
@@ -102,8 +127,6 @@ export const StyledForm = styled.form`
   border-radius: 5px;
   box-shadow: 3px 3px 5px 2px rgba(0, 0, 0, 0.1);
   margin: 1.5rem 1.5rem 0 1.5rem;
-  background: ${(props) => props.bgColor};
-  color: ${(props) => props.textColor};
 
   & * {
     margin: 0.2rem 0;
@@ -139,23 +162,29 @@ export const StyledPost = styled.div`
   padding: 1rem;
 `;
 
-export const StyledTextBlock = styled.div`
+export const StyledTextBlock = styled.div.attrs((props) => ({
+  style: {
+    background: props.colors.highlight,
+    color: getTextColor(props.colors.highlight),
+    borderLeft: `5px solid ${props.colors.shadow2}`,
+  },
+}))`
   width: 90%;
   margin: auto;
   padding: 1rem;
   border-radius: 5px;
-  border-left: 5px solid ${(props) => props.borderColor};
-  background: ${(props) => props.bgColor};
-  color: ${(props) => props.textColor};
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
 `;
 
-export const StyledFooter = styled.footer`
+export const StyledFooter = styled.footer.attrs((props) => ({
+  style: {
+    color: getTextColor(props.colors.theme),
+    background: props.colors.theme,
+  },
+}))`
   width: 100%;
   grid-area: footer;
   margin-top: 0.5em;
-  color: ${(props) => props.textColor};
-  background: ${(props) => props.bgColor};
 
   * {
     height: 40px;
@@ -167,16 +196,16 @@ export const StyledFooter = styled.footer`
   }
 `;
 
-export const ColorSwatch = styled.p`
-  ::after {
-    display: inline-block;
-    vertical-align: middle;
-    content: "";
-    width: 1em;
-    height: 1em;
-    margin-left: 8px;
-    border: 1px solid black;
-    background: ${(props) => props.color};
-    box-shadow: 2px 2px black;
-  }
+export const ColorSwatch = styled.span.attrs((props) => ({
+  style: {
+    background: props.color,
+  },
+}))`
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.1em;
+  height: 1.1em;
+  margin-left: 8px;
+  border: 1px solid black;
+  box-shadow: 2px 2px black;
 `;

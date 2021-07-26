@@ -3,10 +3,7 @@ import { StyledAside, FullContainer } from "./StyledComponents";
 const Aside = (props) => {
   return (
     <FullContainer area="aside">
-      <StyledAside
-        textColor={props.colors.textColor}
-        bgColor={props.colors.faded}
-      >
+      <StyledAside colors={props.colors}>
         <div>
           <h2>Blog Post #1</h2>
           <p>Sample Text</p>

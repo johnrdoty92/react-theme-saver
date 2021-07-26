@@ -6,8 +6,7 @@ const Controller = (props) => {
     <FullContainer area="controller">
       <StyledForm
         onSubmit={props.onSubmit}
-        bgColor={props.colors.faded}
-        textColor={props.colors.textColor}
+        colors={props.colors}
         name="controller"
       >
         <h4>Choose a color:</h4>
@@ -20,36 +19,38 @@ const Controller = (props) => {
             name="type"
             defaultChecked
           />
-          <label for="SingleTone">Single Tone</label>
+          <label htmlFor="SingleTone">Single Tone</label>
         </div>
         <div className="radio-button">
-          <input
-            id="Complementary"
-            type="radio"
-            value="Complementary"
-            name="type"
-          />
-          <label for="Complementary">Complementary</label>
+            <input
+              id="Complementary"
+              type="radio"
+              value="Complementary"
+              name="type"
+            />
+          <label htmlFor="Complementary">Complementary</label>
         </div>
         <h4>Current Colors:</h4>
-        <ColorSwatch color={props.colors.theme}>
-          Theme color: {props.colors.theme}
-        </ColorSwatch>
-        <ColorSwatch color={props.colors.highlight1}>
-          Highlight 1: {props.colors.highlight1}
-        </ColorSwatch>
-        <ColorSwatch color={props.colors.highlight2}>
-          Highlight 2: {props.colors.highlight2}
-        </ColorSwatch>
-        <ColorSwatch color={props.colors.shadow1}>
-          Shadow 1: {props.colors.shadow1}
-        </ColorSwatch>
-        <ColorSwatch color={props.colors.shadow2}>
-          Shadow 2: {props.colors.shadow2}
-        </ColorSwatch>
-        <ColorSwatch color={props.colors.faded}>
-          Faded color: {props.colors.faded}
-        </ColorSwatch>
+        <p>
+          Highlight: {props.colors.highlight}
+          <ColorSwatch color={props.colors.highlight} />
+        </p>
+        <p>
+          Theme: {props.colors.theme}
+          <ColorSwatch color={props.colors.theme} />
+        </p>
+        <p>
+          Dark: {props.colors.shadow1}
+          <ColorSwatch color={props.colors.shadow1} />
+        </p>
+        <p>
+          Darker: {props.colors.shadow2}
+          <ColorSwatch color={props.colors.shadow2} />
+        </p>
+        <p>
+          Faded: {props.colors.faded}
+          <ColorSwatch color={props.colors.faded} />
+        </p>
         <div className="submit-area">
           <input required type="text" placeholder="Name your preset"></input>
           <button type="submit">Save Preset</button>

@@ -7,14 +7,11 @@ export default function Navbar(props) {
       bgColor={props.colors.shadow2}
       area="nav"
     >
-      <NavItem active={props.colors.shadow1} textColor={props.colors.textColor}>
-        <a href="#">Home</a>
+      <NavItem hover={props.colors.shadow1} active={props.colors.highlight}>
+        <a href="https://github.com/johnrdoty92/react-theme-saver">Github Repo</a>
       </NavItem>
-      <NavItem active={props.colors.shadow1} textColor={props.colors.textColor}>
-        <a href="#">About</a>
-      </NavItem>
-      <NavItem active={props.colors.shadow1} textColor={props.colors.textColor}>
-        <a href="#">Contact</a>
+      <NavItem hover={props.colors.shadow1} active={props.colors.highlight}>
+        <a href="mailto:johnrdoty92@gmail.com">Contact</a>
       </NavItem>
     </StyledNavbar>
   );

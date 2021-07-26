@@ -1,25 +1,16 @@
-class ThemeColors {
+export default class ThemeColors {
   constructor(hexColor, invert) {
     const rgb = hexTorgb(hexColor);
     this.colors = {
       theme: hexColor,
-      highlight1: adjustLuminosity(rgb, 0.75),
-      highlight2: invert
-        ? adjustLuminosity(rgb, 0, invert)
-        : adjustLuminosity(rgb, 0.75), //invert
+      highlight: adjustLuminosity(rgb, 0.85),
       shadow1: adjustLuminosity(rgb, -0.25),
-      shadow2: adjustLuminosity(rgb, -0.75),
+      shadow2: invert
+        ? adjustLuminosity(rgb, -0.25, invert)
+        : adjustLuminosity(rgb, -0.65),
       faded: adjustSaturation(rgb, 0.5, invert),
       textColor: rgb[0] + rgb[1] + rgb[2] < 400 ? "white" : "black",
     };
-    this.highlight1 = adjustLuminosity(rgb, 0.75);
-    this.highlight2 = invert
-      ? adjustLuminosity(rgb, 0, invert)
-      : adjustLuminosity(rgb, 0.75); //invert
-    this.theme = hexColor;
-    this.shadow1 = adjustLuminosity(rgb, -0.25);
-    this.shadow2 = adjustLuminosity(rgb, -0.75);
-    this.faded = adjustSaturation(rgb, 0.5, invert); //invert
   }
 }
 
@@ -65,12 +56,7 @@ function adjustSaturation(rgb, scale, invert = false) {
   return "#" + newColor.join("");
 }
 
-let red = "#FF0000";
-let green = "#00FF00";
-let blue = "#0000FF";
-
-let sampleRed = new ThemeColors(red, false);
-let invertedRed = new ThemeColors(red, true);
-
-sampleRed;
-invertedRed;
+export function getTextColor(hexColor) {
+  const [r, g, b] = hexTorgb(hexColor);
+  return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000000" : "#FFFFFF";
+}
