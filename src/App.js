@@ -21,8 +21,18 @@ class App extends Component {
         shadow2: "#656565",
         faded: "#878787",
       },
-      themes: [],
+      themes: ["Default Theme"],
     };
+  }
+
+  componentDidMount() {
+    if (localStorage) {
+      const themes = this.state.themes.slice();
+      const localThemes = Object.keys(localStorage);
+      this.setState({ themes: themes.concat(localThemes) });
+    } else {
+      console.log("No localStorage");
+    }
   }
 
   handleSave = (event) => {
@@ -61,6 +71,7 @@ class App extends Component {
         <Header colors={colors} header={this.state.themeName} />
         <Navbar colors={colors} />
         <Controller
+          themes={this.state.themes}
           onSubmit={this.handleSave}
           onChange={this.handleChange}
           onLoad={this.handleLoad}

@@ -1,5 +1,5 @@
+import LoadAndDelete from "./LoadAndDelete";
 import { FullContainer, StyledForm, ColorSwatch } from "./StyledComponents";
-import DropdownList from "./DropdownList";
 
 const Controller = (props) => {
   return (
@@ -55,7 +55,7 @@ const Controller = (props) => {
           <input required type="text" placeholder="Name your preset"></input>
           <button type="submit">Save Preset</button>
         </div>
-        <DropdownList onLoad={props.onLoad} />
+        <LoadAndDelete themes={props.themes} />
       </StyledForm>
     </FullContainer>
   );

@@ -210,7 +210,12 @@ export const ColorSwatch = styled.span.attrs((props) => ({
   box-shadow: 2px 2px black;
 `;
 
-export const StyledDropDown = styled.div`
+export const FlexColumn = styled.div`
   display: flex;
-  flex-flow: row;
-`
+  flex-flow: nowrap column;
+`;
+
+export const FlexRow = styled.div`
+  display: flex;
+  flex-flow: nowrap row;
+`;
