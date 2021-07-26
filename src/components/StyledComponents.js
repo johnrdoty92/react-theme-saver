@@ -209,3 +209,8 @@ export const ColorSwatch = styled.span.attrs((props) => ({
   border: 1px solid black;
   box-shadow: 2px 2px black;
 `;
+
+export const StyledDropDown = styled.div`
+  display: flex;
+  flex-flow: row;
+`

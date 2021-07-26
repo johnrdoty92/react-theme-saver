@@ -1,4 +1,5 @@
 import React from "react";
+import { StyledDropDown } from "./StyledComponents";
 
 const DropdownList = () => {
   if (localStorage) {
@@ -6,11 +7,11 @@ const DropdownList = () => {
       return <option key={key}>{key}</option>;
     });
     return (
-      <React.Fragment>
+      <StyledDropDown>
         <select>{options}</select>
-        <button>Load Theme</button>
-        <button>Delete Theme</button>
-      </React.Fragment>
+        <button onClick={null}>Load Theme</button>
+        <button onClick={null}>Delete Theme</button>
+      </StyledDropDown>
     );
   } else {
     return (
