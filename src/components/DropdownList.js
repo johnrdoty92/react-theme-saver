@@ -1,16 +1,24 @@
 import React from "react";
 import { StyledDropDown } from "./StyledComponents";
 
-const DropdownList = () => {
+const DropdownList = (props) => {
   if (localStorage) {
     const options = Object.keys(localStorage).map((key) => {
-      return <option key={key}>{key}</option>;
+      return (
+        <option value={key} key={key}>
+          {key}
+        </option>
+      );
     });
     return (
       <StyledDropDown>
         <select>{options}</select>
-        <button onClick={null}>Load Theme</button>
-        <button onClick={null}>Delete Theme</button>
+        <button type="button" onClick={props.onLoad}>
+          Load Theme
+        </button>
+        <button type="button" onClick={null}>
+          Delete Theme
+        </button>
       </StyledDropDown>
     );
   } else {

@@ -21,6 +21,7 @@ class App extends Component {
         shadow2: "#656565",
         faded: "#878787",
       },
+      themes: [],
     };
   }
 
@@ -36,6 +37,10 @@ class App extends Component {
       event.target[3].value,
       JSON.stringify(this.state.colors)
     );
+  };
+
+  handleLoad = (event) => {
+    console.log(event);
   };
 
   handleChange = (event) => {
@@ -58,6 +63,7 @@ class App extends Component {
         <Controller
           onSubmit={this.handleSave}
           onChange={this.handleChange}
+          onLoad={this.handleLoad}
           colors={colors}
         />
         <Aside colors={colors} />

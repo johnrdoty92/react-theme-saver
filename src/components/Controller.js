@@ -22,12 +22,12 @@ const Controller = (props) => {
           <label htmlFor="SingleTone">Single Tone</label>
         </div>
         <div className="radio-button">
-            <input
-              id="Complementary"
-              type="radio"
-              value="Complementary"
-              name="type"
-            />
+          <input
+            id="Complementary"
+            type="radio"
+            value="Complementary"
+            name="type"
+          />
           <label htmlFor="Complementary">Complementary</label>
         </div>
         <h4>Current Colors:</h4>
@@ -55,7 +55,7 @@ const Controller = (props) => {
           <input required type="text" placeholder="Name your preset"></input>
           <button type="submit">Save Preset</button>
         </div>
-        <DropdownList />
+        <DropdownList onLoad={props.onLoad} />
       </StyledForm>
     </FullContainer>
   );
