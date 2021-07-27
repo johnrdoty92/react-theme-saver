@@ -21,32 +21,34 @@ class App extends Component {
         shadow2: "#656565",
         faded: "#878787",
       },
-      themes: ["Default Theme"],
     };
   }
-
   componentDidMount() {
-    if (localStorage) {
-      const themes = this.state.themes.slice();
-      const localThemes = Object.keys(localStorage);
-      this.setState({ themes: themes.concat(localThemes) });
+    if (!localStorage.themes) {
+      const defaultTheme = [this.state];
+      localStorage.setItem("themes", JSON.stringify(defaultTheme));
     } else {
-      console.log("No localStorage");
+      console.log("Default is already set");
     }
   }
 
-  handleSave = (event) => {
-    event.preventDefault();
-    console.log(event);
-    if (Object.keys(localStorage).includes(event.target[3].value)) {
-      alert("A theme with that name already exists.");
+  handleSave = async (e) => {
+    e.preventDefault();
+    const themeName = e.target[3].value;
+    const themes = JSON.parse(localStorage.getItem("themes"));
+
+    //Checks if theme name already exists
+    if (themes.some((element) => element.themeName === themeName)) {
+      alert("A theme with that name already exists");
       return;
     }
-    this.setState({ themeName: event.target[3].value });
-    localStorage.setItem(
-      event.target[3].value,
-      JSON.stringify(this.state.colors)
-    );
+    //Theme name is good, so set state
+    await this.setState({
+      themeName: themeName,
+    });
+    //And save into localStorage
+    themes.push(this.state);
+    localStorage.setItem("themes", JSON.stringify(themes));
   };
 
   handleLoad = (event) => {
@@ -71,10 +73,9 @@ class App extends Component {
         <Header colors={colors} header={this.state.themeName} />
         <Navbar colors={colors} />
         <Controller
-          themes={this.state.themes}
           onSubmit={this.handleSave}
           onChange={this.handleChange}
-          onLoad={this.handleLoad}
+          onClickLoad={this.handleLoad}
           colors={colors}
         />
         <Aside colors={colors} />

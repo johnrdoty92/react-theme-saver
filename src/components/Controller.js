@@ -1,7 +1,13 @@
-import LoadAndDelete from "./LoadAndDelete";
 import { FullContainer, StyledForm, ColorSwatch } from "./StyledComponents";
+import ThemeListEditor from "./ThemeListEditor";
 
 const Controller = (props) => {
+  const themesController =
+    typeof Storage !== "undefined" ? (
+      <ThemeListEditor onClickLoad={props.onClickLoad} />
+    ) : (
+      <p>Sorry, your browser does not support localStorage</p>
+    );
   return (
     <FullContainer area="controller">
       <StyledForm
@@ -51,11 +57,7 @@ const Controller = (props) => {
           Faded: {props.colors.faded}
           <ColorSwatch color={props.colors.faded} />
         </p>
-        <div className="submit-area">
-          <input required type="text" placeholder="Name your preset"></input>
-          <button type="submit">Save Preset</button>
-        </div>
-        <LoadAndDelete themes={props.themes} />
+        {themesController}
       </StyledForm>
     </FullContainer>
   );

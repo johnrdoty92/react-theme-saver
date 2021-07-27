@@ -11,7 +11,7 @@ export const GlobalStyle = createGlobalStyle`
 
 export const MainContainer = styled.div`
   width: 100%;
-  height: 100vw;
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-template-rows: 4em 2em minmax(30em, 35em) minmax(20em, 25em) 3em;
@@ -24,7 +24,7 @@ export const MainContainer = styled.div`
 
   @media only screen and (max-width: 500px) {
     grid-template-columns: 1fr;
-    grid-template-rows: 4em 2em 0.5fr 2fr 1fr 0.25fr;
+    grid-template-rows: 4em 2em auto auto auto 3em;
     grid-template-areas:
       "header"
       "nav"
@@ -146,6 +146,13 @@ export const StyledForm = styled.form.attrs((props) => ({
     button {
       border-radius: 0px 5px 5px 0px;
       border: 1px solid black;
+      transition: all 0.2s;
+      &:hover {
+        background: white;
+      }
+      &:active {
+        background: grey;
+      }
     }
   }
   h4 {
@@ -182,6 +189,7 @@ export const StyledFooter = styled.footer.attrs((props) => ({
     background: props.colors.theme,
   },
 }))`
+  margin-top: auto;
   width: 100%;
   grid-area: footer;
   margin-top: 0.5em;
