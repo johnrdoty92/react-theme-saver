@@ -21,6 +21,7 @@ class App extends Component {
         shadow2: "#656565",
         faded: "#878787",
       },
+      themes: ["Default Theme"],
     };
   }
   componentDidMount() {
@@ -29,6 +30,10 @@ class App extends Component {
       localStorage.setItem("themes", JSON.stringify(defaultTheme));
     } else {
       console.log("Default is already set");
+      const themes = JSON.parse(localStorage.themes).map(
+        (theme) => theme.themeName
+      );
+      this.setState({ themes: themes });
     }
   }
 
@@ -42,9 +47,10 @@ class App extends Component {
       alert("A theme with that name already exists");
       return;
     }
-    //Theme name is good, so set state
+    //Theme name is good, so push name into themes array and set state
     await this.setState({
       themeName: themeName,
+      themes: this.state.themes.concat([themeName]),
     });
     //And save into localStorage
     themes.push(this.state);
@@ -77,6 +83,7 @@ class App extends Component {
           onChange={this.handleChange}
           onClickLoad={this.handleLoad}
           colors={colors}
+          themeNames={this.state.themes}
         />
         <Aside colors={colors} />
         <Post colors={colors} />

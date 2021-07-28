@@ -1,6 +1,10 @@
 import { FlexColumn, FlexRow } from "./StyledComponents";
 
 const ThemeListEditor = (props) => {
+  const themes = props.themeNames.map((theme) => {
+    return <option value="theme">{theme}</option>;
+  });
+
   return (
     <div>
       <div className="submit-area">
@@ -8,7 +12,7 @@ const ThemeListEditor = (props) => {
         <button type="submit">Save Preset</button>
       </div>
       <div>
-        <select></select>
+        <select>{themes}</select>
         <button type="button" onClick={props.onClickLoad}>
           Load
         </button>

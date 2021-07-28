@@ -4,7 +4,10 @@ import ThemeListEditor from "./ThemeListEditor";
 const Controller = (props) => {
   const themesController =
     typeof Storage !== "undefined" ? (
-      <ThemeListEditor onClickLoad={props.onClickLoad} />
+      <ThemeListEditor
+        onClickLoad={props.onClickLoad}
+        themeNames={props.themeNames}
+      />
     ) : (
       <p>Sorry, your browser does not support localStorage</p>
     );
