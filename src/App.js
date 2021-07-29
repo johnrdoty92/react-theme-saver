@@ -71,12 +71,18 @@ class App extends Component {
         });
         break;
       case "Delete":
-        console.log("Delete");
+        if (localThemes[loadThemeIndex].themeName === "Default Theme") {
+          alert("Default cannot be deleted");
+          break;
+        }
+        const themesIndex = this.state.themes.findIndex(
+          (elem) => elem === localThemes[loadThemeIndex].themeName
+        );
+        let newThemes = [...this.state.themes];
+        newThemes.splice(themesIndex, 1);
         localThemes.splice(loadThemeIndex, 1);
-        console.log(localThemes);
         localStorage.setItem("themes", JSON.stringify(localThemes));
-        //ADD FUNCTIONALITY TO REMOVE THEME NAME FROM LIST OF NAMES
-
+        this.setState({ themes: newThemes });
         break;
       default:
         console.log("Button says something other than 'Load' or 'Delete'");
