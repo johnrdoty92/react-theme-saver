@@ -2,7 +2,11 @@ import { FlexColumn, FlexRow } from "./StyledComponents";
 
 const ThemeListEditor = (props) => {
   const themes = props.themeNames.map((theme) => {
-    return <option value="theme">{theme}</option>;
+    return (
+      <option key={theme} value={theme}>
+        {theme}
+      </option>
+    );
   });
 
   return (
@@ -13,8 +17,11 @@ const ThemeListEditor = (props) => {
       </div>
       <div>
         <select>{themes}</select>
-        <button type="button" onClick={props.onClickLoad}>
+        <button type="button" onClick={props.onClick}>
           Load
+        </button>
+        <button type="button" onClick={props.onClick}>
+          Delete
         </button>
       </div>
     </div>

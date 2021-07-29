@@ -5,7 +5,7 @@ const Controller = (props) => {
   const themesController =
     typeof Storage !== "undefined" ? (
       <ThemeListEditor
-        onClickLoad={props.onClickLoad}
+        onClick={props.onClick}
         themeNames={props.themeNames}
       />
     ) : (

@@ -57,8 +57,30 @@ class App extends Component {
     localStorage.setItem("themes", JSON.stringify(themes));
   };
 
-  handleLoad = (event) => {
-    console.log(event);
+  handleLoadAndDelete = (e) => {
+    const loadThemeName = e.target.form[5].value;
+    const localThemes = JSON.parse(localStorage.getItem("themes")); //Array of all themes in localStorage
+    const loadThemeIndex = localThemes.findIndex((elem) => {
+      return elem.themeName === loadThemeName;
+    });
+    switch (e.target.textContent) {
+      case "Load":
+        this.setState({
+          colors: localThemes[loadThemeIndex].colors,
+          themeName: localThemes[loadThemeIndex].themeName,
+        });
+        break;
+      case "Delete":
+        console.log("Delete");
+        localThemes.splice(loadThemeIndex, 1);
+        console.log(localThemes);
+        localStorage.setItem("themes", JSON.stringify(localThemes));
+        //ADD FUNCTIONALITY TO REMOVE THEME NAME FROM LIST OF NAMES
+
+        break;
+      default:
+        console.log("Button says something other than 'Load' or 'Delete'");
+    }
   };
 
   handleChange = (event) => {
@@ -81,7 +103,7 @@ class App extends Component {
         <Controller
           onSubmit={this.handleSave}
           onChange={this.handleChange}
-          onClickLoad={this.handleLoad}
+          onClick={this.handleLoadAndDelete}
           colors={colors}
           themeNames={this.state.themes}
         />
