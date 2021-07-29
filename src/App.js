@@ -25,11 +25,15 @@ class App extends Component {
     };
   }
   componentDidMount() {
+    //Check browser compatability for localStorage
+    if (typeof Storage !== "undefined") {
+      return;
+    }
+    //Storage is good, but check if "themes" key exists
     if (!localStorage.themes) {
       const defaultTheme = [this.state];
       localStorage.setItem("themes", JSON.stringify(defaultTheme));
     } else {
-      console.log("Default is already set");
       const themes = JSON.parse(localStorage.themes).map(
         (theme) => theme.themeName
       );
@@ -39,8 +43,8 @@ class App extends Component {
 
   handleSave = async (e) => {
     e.preventDefault();
-    const themeName = e.target[3].value;
-    const themes = JSON.parse(localStorage.getItem("themes"));
+    const themeName = e.target[3].value; //value of user's input text
+    const themes = JSON.parse(localStorage.getItem("themes")); //array of all saved themes
 
     //Checks if theme name already exists
     if (themes.some((element) => element.themeName === themeName)) {
@@ -58,11 +62,12 @@ class App extends Component {
   };
 
   handleLoadAndDelete = (e) => {
-    const loadThemeName = e.target.form[5].value;
+    const loadThemeName = e.target.form[5].value; //value from select drop down
     const localThemes = JSON.parse(localStorage.getItem("themes")); //Array of all themes in localStorage
     const loadThemeIndex = localThemes.findIndex((elem) => {
       return elem.themeName === loadThemeName;
     });
+
     switch (e.target.textContent) {
       case "Load":
         this.setState({
@@ -70,7 +75,9 @@ class App extends Component {
           themeName: localThemes[loadThemeIndex].themeName,
         });
         break;
+
       case "Delete":
+        //Prevent deletion of Default Theme
         if (localThemes[loadThemeIndex].themeName === "Default Theme") {
           alert("Default cannot be deleted");
           break;
@@ -78,12 +85,14 @@ class App extends Component {
         const themesIndex = this.state.themes.findIndex(
           (elem) => elem === localThemes[loadThemeIndex].themeName
         );
+        //Remove theme name from state and localStorage
         let newThemes = [...this.state.themes];
         newThemes.splice(themesIndex, 1);
         localThemes.splice(loadThemeIndex, 1);
         localStorage.setItem("themes", JSON.stringify(localThemes));
         this.setState({ themes: newThemes });
         break;
+
       default:
         console.log("Button says something other than 'Load' or 'Delete'");
     }

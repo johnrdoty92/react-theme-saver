@@ -14,7 +14,7 @@ export const MainContainer = styled.div`
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 4em 2em minmax(30em, 35em) minmax(20em, 25em) 3em;
+  grid-template-rows: 4em 2em minmax(30em, 37em) minmax(20em, 25em) 3em;
   grid-template-areas:
     "header header"
     "nav nav"
@@ -142,26 +142,60 @@ export const StyledForm = styled.form.attrs((props) => ({
     input {
       border-radius: 5px 0px 0px 5px;
       border: 1px solid black;
+      padding: 5px;
     }
     button {
       border-radius: 0px 5px 5px 0px;
       border: 1px solid black;
       transition: all 0.2s;
+      color: white;
+      background: rgba(0, 0, 0, 0.5);
       &:hover {
         background: white;
+        color: black;
       }
       &:active {
         background: grey;
       }
     }
   }
+  .save-load-delete {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
   h4 {
     text-align: center;
     text-transform: uppercase;
+    padding: 5px;
+    width: 95%;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.3);
   }
   input[type="color"] {
     width: 80%;
-    height: 50px;
+    min-height: 35px;
+  }
+  select {
+    border-radius: 5px 0px 0px 5px;
+    padding: 5px;
+  }
+  button[type="button"] {
+    padding: 5px;
+    border: 1px solid black;
+    transition: all 0.2s;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    &:hover {
+      background: white;
+      color: black;
+    }
+    &:active {
+      background: grey;
+    }
+    &:last-child {
+      border-radius: 0px 5px 5px 0px;
+    }
   }
 `;
 
@@ -218,12 +252,13 @@ export const ColorSwatch = styled.span.attrs((props) => ({
   box-shadow: 2px 2px black;
 `;
 
-export const FlexColumn = styled.div`
-  display: flex;
-  flex-flow: nowrap column;
-`;
-
 export const FlexRow = styled.div`
+  width: 100%;
   display: flex;
   flex-flow: nowrap row;
+  justify-content: space-evenly;
+
+  * {
+    flex-basis: 100%;
+  }
 `;

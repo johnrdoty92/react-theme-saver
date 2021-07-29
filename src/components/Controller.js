@@ -4,10 +4,7 @@ import ThemeListEditor from "./ThemeListEditor";
 const Controller = (props) => {
   const themesController =
     typeof Storage !== "undefined" ? (
-      <ThemeListEditor
-        onClick={props.onClick}
-        themeNames={props.themeNames}
-      />
+      <ThemeListEditor onClick={props.onClick} themeNames={props.themeNames} />
     ) : (
       <p>Sorry, your browser does not support localStorage</p>
     );
@@ -18,8 +15,7 @@ const Controller = (props) => {
         colors={props.colors}
         name="controller"
       >
-        <h4>Choose a color:</h4>
-        <input type="color" onChange={props.onChange} />
+        <h4>1. Choose a color scheme:</h4>
         <div className="radio-button">
           <input
             id="SingleTone"
@@ -39,7 +35,9 @@ const Controller = (props) => {
           />
           <label htmlFor="Complementary">Complementary</label>
         </div>
-        <h4>Current Colors:</h4>
+        <h4>2. Choose a color:</h4>
+        <input type="color" onChange={props.onChange} />
+        <h4>3. Copy your colors:</h4>
         <p>
           Highlight: {props.colors.highlight}
           <ColorSwatch color={props.colors.highlight} />
