@@ -26,7 +26,7 @@ class App extends Component {
   }
   componentDidMount() {
     //Check browser compatability for localStorage
-    if (typeof Storage !== "undefined") {
+    if (typeof Storage === "undefined") {
       return;
     }
     //Storage is good, but check if "themes" key exists
