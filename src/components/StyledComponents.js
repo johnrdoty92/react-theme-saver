@@ -14,7 +14,7 @@ export const MainContainer = styled.div`
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: 4em 2em minmax(30em, 37em) minmax(20em, 25em) 3em;
+  grid-template-rows: 4em 2em minmax(31em, 39.5em) minmax(20em, 25em) 3em;
   grid-template-areas:
     "header header"
     "nav nav"
