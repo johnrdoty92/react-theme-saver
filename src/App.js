@@ -26,6 +26,9 @@ class App extends Component {
   }
   componentDidMount() {
     //Check browser compatability for localStorage
+    // Tiffany Note: It's not necessary to check every single browser api for what browser to support,
+    // sometimes it's fine to disregard if your product itself doesn't support those browsers.
+    // These days it's customary to support the last two versions of each browser
     if (typeof Storage === "undefined") {
       return;
     }
@@ -34,15 +37,18 @@ class App extends Component {
       const defaultTheme = [this.state];
       localStorage.setItem("themes", JSON.stringify(defaultTheme));
     } else {
+      // Tiffany Note: You can be more defensive because localStore.themes (or even JSON.parse itself) may not be an array (users can mess with it).
+      // You should be more defensive with anything that users can interact with. Look into optional chaining
       const themes = JSON.parse(localStorage.themes).map(
         (theme) => theme.themeName
       );
-      this.setState({ themes: themes });
+      this.setState({ themes });
     }
   }
 
   handleSave = async (e) => {
     e.preventDefault();
+    // Tiffany Note: A better way to do the line below is to create a ref on the user input field, and on change, store that as themeName
     const themeName = e.target[3].value; //value of user's input text
     const themes = JSON.parse(localStorage.getItem("themes")); //array of all saved themes
 
@@ -52,16 +58,24 @@ class App extends Component {
       return;
     }
     //Theme name is good, so push name into themes array and set state
+    // Tiffany Note: This can be done without asynchronously awaiting by passing in a second argument to setState,
+    // which gets called after the setState is completed
     await this.setState({
       themeName: themeName,
       themes: this.state.themes.concat([themeName]),
     });
     //And save into localStorage
+    // Tiffany Note: I think pushing your entire state into here is redundant and causes your data structure to be weirdly nested.
+    // The only thing that should go in this array are an array of themes, which are {color, themeName}
+    // They all currently have a nested themes property in there.
     themes.push(this.state);
     localStorage.setItem("themes", JSON.stringify(themes));
   };
 
+  // Tiffany Note: Split this out into two functions instead of looking at textContent of the button to figure out what each button is doing
+  // because it is presentation data and overly complicates its function (line 82 onwards)
   handleLoadAndDelete = (e) => {
+    // Tiffany Note: In order to get input value, you can place a ref like described on line 51
     const loadThemeName = e.target.form[5].value; //value from select drop down
     const localThemes = JSON.parse(localStorage.getItem("themes")); //Array of all themes in localStorage
     const loadThemeIndex = localThemes.findIndex((elem) => {
@@ -94,11 +108,16 @@ class App extends Component {
         break;
 
       default:
+        // Tiffany Note: If you split out the two functionalities, you will never have this case
         console.log("Button says something other than 'Load' or 'Delete'");
     }
   };
 
   handleChange = (event) => {
+    // Tiffany Note: in order to get the element type value, it's preferred not to get things directly
+    // from the DOM but to shift your selected state. In Controller, I'd have a state for whether
+    // Complementary or Single Tone is selected (you can pass state down from this component too for
+    // access to the variable), and do the work below on that state
     const invert =
       document.forms.controller.elements["type"].value === "Complementary";
     const selectedColor = new ThemeColors(event.target.value, invert);
@@ -109,6 +128,7 @@ class App extends Component {
   };
 
   render() {
+    // Tiffany Note: You can pull out themeName and themes from state here too
     const { colors } = this.state;
     return (
       <MainContainer>
