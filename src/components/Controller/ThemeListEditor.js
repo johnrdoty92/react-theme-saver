@@ -1,4 +1,4 @@
-import { FlexRow } from "./StyledComponents";
+import { FlexRow } from "../StyledComponents";
 
 const ThemeListEditor = (props) => {
   const themes = props.themeNames.map((theme) => {

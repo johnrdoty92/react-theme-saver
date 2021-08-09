@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { createGlobalStyle } from "styled-components";
-import { getTextColor } from "../classes/ThemeColors";
+import { getTextColor } from "../classes/ColorCalculator";
 
 export const GlobalStyle = createGlobalStyle`
 

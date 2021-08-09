@@ -1,13 +1,12 @@
-import "./App.css";
 import React, { Component } from "react";
 import { MainContainer, GlobalStyle } from "./components/StyledComponents";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import Controller from "./components/Controller";
+import Controller from "./components/Controller/Controller";
 import Aside from "./components/Aside";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
-import ThemeColors from "./classes/ThemeColors";
+import ThemeColors from "./classes/ColorCalculator";
 
 class App extends Component {
   constructor(props) {
@@ -70,6 +69,7 @@ class App extends Component {
     // They all currently have a nested themes property in there.
     themes.push(this.state);
     localStorage.setItem("themes", JSON.stringify(themes));
+    alert(`${themeName} was successfuly saved into local storage!`);
   };
 
   // Tiffany Note: Split this out into two functions instead of looking at textContent of the button to figure out what each button is doing
@@ -128,19 +128,18 @@ class App extends Component {
   };
 
   render() {
-    // Tiffany Note: You can pull out themeName and themes from state here too
-    const { colors } = this.state;
+    const { colors, themeName, themes } = this.state;
     return (
       <MainContainer>
         <GlobalStyle />
-        <Header colors={colors} header={this.state.themeName} />
+        <Header colors={colors} header={themeName} />
         <Navbar colors={colors} />
         <Controller
           onSubmit={this.handleSave}
           onChange={this.handleChange}
           onClick={this.handleLoadAndDelete}
           colors={colors}
-          themeNames={this.state.themes}
+          themeNames={themes}
         />
         <Aside colors={colors} />
         <Post colors={colors} />

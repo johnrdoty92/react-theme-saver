@@ -2,8 +2,8 @@
 
 ## User Experience
 
-- Under "Save Themes", preset name should clear after user saves preset.
-- On click of any action button, some confirmation to the user would be good
+[ ] Under "Save Themes", preset name should clear after user saves preset.
+[ ] On click of any action button, some confirmation to the user would be good
 
 ## Code
 
