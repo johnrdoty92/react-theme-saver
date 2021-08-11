@@ -1,9 +1,10 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { FlexRow } from "../StyledComponents";
 //props.colors has all the color data to be pushed into local state
 const ThemeListEditor = (props) => {
   const selectInputRef = useRef();
   const [themeName, setThemeName] = useState("");
+  //If there is not themes object in localStorage, create the default, othrewise use what's there
   const [themeNameList, setThemeNameList] = useState(
     JSON.parse(localStorage.themes).map((theme) => theme.themeName)
   );
@@ -26,6 +27,8 @@ const ThemeListEditor = (props) => {
     themes.push({ themeName: themeName, colors: props.colors });
     localStorage.setItem("themes", JSON.stringify(themes));
     setThemeNameList((prevThemeList) => [...prevThemeList, themeName]);
+    //Change the header to the theme name
+    props.changeHeader(themeName);
     alert(`${themeName} was successfuly saved into local storage!`);
     setThemeName("");
   }
@@ -39,6 +42,7 @@ const ThemeListEditor = (props) => {
     });
     //Once theme is pulled from local storage, pass it to Controller
     props.loadTheme(themeToLoad.colors);
+    props.changeHeader(themeToLoad.themeName);
   }
 
   function handleDeleteTheme() {
@@ -47,7 +51,7 @@ const ThemeListEditor = (props) => {
       alert("Default cannot be deleted");
       return;
     }
-    //Filter out the theme to delete
+    //Remove the theme to delete
     const filteredThemes = JSON.parse(localStorage.getItem("themes")).filter(
       (theme) => {
         return theme.themeName !== selectInputRef.current.value;
@@ -56,6 +60,7 @@ const ThemeListEditor = (props) => {
     //Update localStorage and themeNameList for select input
     localStorage.setItem("themes", JSON.stringify(filteredThemes));
     setThemeNameList(filteredThemes.map((theme) => theme.themeName));
+    alert(`"${selectInputRef.current.value}" was deleted!`)
   }
 
   return (

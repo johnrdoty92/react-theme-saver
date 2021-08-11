@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { FullContainer, StyledForm } from "../StyledComponents";
 import ThemeColors from "../../classes/ColorCalculator";
 import ThemeListEditor from "./ThemeListEditor";
@@ -13,6 +13,7 @@ const Controller = (props) => {
         colors={props.colors}
         loadTheme={handleLoadColors}
         themeNames={props.themeNames}
+        changeHeader={props.onHeaderChange}
       />
     ) : (
       <p>Sorry, your browser does not support localStorage</p>
@@ -28,7 +29,7 @@ const Controller = (props) => {
 
   //Update colors for all HTML elements
   useEffect(() => {
-    props.onChange(colors);
+    props.onColorChange(colors);
   }, [colors]);
   //Update colors after changing color scheme
   useEffect(() => {

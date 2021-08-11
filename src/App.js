@@ -19,7 +19,6 @@ class App extends Component {
         shadow2: "#656565",
         faded: "#878787",
       },
-      themes: ["Default Theme"],
     };
   }
   componentDidMount() {
@@ -49,6 +48,12 @@ class App extends Component {
       colors: newTheme,
     });
   };
+  handleHeaderChange = (newHeader) => {
+    console.log("Header was changed to", newHeader);
+    this.setState({
+      themeName: newHeader,
+    });
+  };
 
   render() {
     const { colors, themeName, themes } = this.state;
@@ -59,7 +64,8 @@ class App extends Component {
         <Navbar colors={colors} />
         <Controller
           onSubmit={this.handleSave}
-          onChange={this.handleThemeChange}
+          onColorChange={this.handleThemeChange}
+          onHeaderChange={this.handleHeaderChange}
           onClick={this.handleLoadAndDelete}
           colors={colors}
           themeNames={themes}
