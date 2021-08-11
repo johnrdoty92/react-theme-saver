@@ -1,5 +1,5 @@
-import React, { Component, useState } from "react";
-import { FullContainer, StyledForm, ColorSwatch } from "../StyledComponents";
+import React, { useState, useEffect, useRef } from "react";
+import { FullContainer, StyledForm } from "../StyledComponents";
 import ThemeColors from "../../classes/ColorCalculator";
 import ThemeListEditor from "./ThemeListEditor";
 import ColorScheme from "./ColorScheme";
@@ -7,15 +7,17 @@ import ChooseColor from "./ChooseColor";
 import ColorSwatchDisplay from "./ColorSwatchDisplay";
 
 const Controller = (props) => {
-  const themesController =
+  const themeListEditor =
     typeof Storage !== "undefined" ? (
-      <ThemeListEditor onClick={props.onClick} themeNames={props.themeNames} />
+      <ThemeListEditor
+        colors={props.colors}
+        loadTheme={handleLoadColors}
+        themeNames={props.themeNames}
+      />
     ) : (
       <p>Sorry, your browser does not support localStorage</p>
     );
-
   const [colorScheme, setColorScheme] = useState("SingleTone");
-  const [currentColor, setCurrentColor] = useState("#000000");
   const [colors, setColors] = useState({
     theme: "#878787",
     highlight: "#ececec",
@@ -24,23 +26,36 @@ const Controller = (props) => {
     faded: "#878787",
   });
 
-  function handleChooseColor(e) {
-    setCurrentColor((prevColor) => prevColor[0] + e.target.value.slice(1));
-    const newTheme = new ThemeColors(currentColor, false);
+  //Update colors for all HTML elements
+  useEffect(() => {
+    props.onChange(colors);
+  }, [colors]);
+  //Update colors after changing color scheme
+  useEffect(() => {
+    const invert = colorScheme === "Complementary";
+    const newTheme = new ThemeColors(colors.theme, invert);
     setColors(newTheme.colors);
+  }, [colorScheme]);
+
+  function handleChooseColor(e) {
+    const invert = colorScheme === "Complementary";
+    const newTheme = new ThemeColors(e.target.value, invert);
+    setColors(newTheme.colors);
+  }
+  function handleChooseScheme(e) {
+    setColorScheme(e.target.value);
+  }
+  function handleLoadColors(colors) {
+    setColors(colors);
   }
 
   return (
     <FullContainer area="controller">
-      <StyledForm
-        onSubmit={props.onSubmit}
-        colors={props.colors}
-        name="controller"
-      >
-        <ColorScheme />
+      <StyledForm colors={colors} name="controller">
+        <ColorScheme onChange={handleChooseScheme} />
         <ChooseColor onChange={handleChooseColor} />
-        <ColorSwatchDisplay colors={props.colors} />
-        {themesController}
+        <ColorSwatchDisplay colors={colors} />
+        {themeListEditor}
       </StyledForm>
     </FullContainer>
   );

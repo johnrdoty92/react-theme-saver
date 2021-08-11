@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-import { ColorSwatch } from "../StyledComponents";
+import React from "react";
+import styled from "styled-components";
+
 
 const ColorSwatchDisplay = (props) => {
   return (
@@ -28,5 +29,19 @@ const ColorSwatchDisplay = (props) => {
     </React.Fragment>
   );
 };
+
+export const ColorSwatch = styled.span.attrs((props) => ({
+  style: {
+    background: props.color,
+  },
+}))`
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.1em;
+  height: 1.1em;
+  margin-left: 8px;
+  border: 1px solid black;
+  box-shadow: 2px 2px black;
+`;
 
 export default ColorSwatchDisplay;

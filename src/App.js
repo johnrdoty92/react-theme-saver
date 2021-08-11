@@ -6,7 +6,6 @@ import Controller from "./components/Controller/Controller";
 import Aside from "./components/Aside";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
-import ThemeColors from "./classes/ColorCalculator";
 
 class App extends Component {
   constructor(props) {
@@ -45,85 +44,9 @@ class App extends Component {
     }
   }
 
-  handleSave = async (e) => {
-    e.preventDefault();
-    // Tiffany Note: A better way to do the line below is to create a ref on the user input field, and on change, store that as themeName
-    const themeName = e.target[3].value; //value of user's input text
-    const themes = JSON.parse(localStorage.getItem("themes")); //array of all saved themes
-
-    //Checks if theme name already exists
-    if (themes.some((element) => element.themeName === themeName)) {
-      alert("A theme with that name already exists");
-      return;
-    }
-    //Theme name is good, so push name into themes array and set state
-    // Tiffany Note: This can be done without asynchronously awaiting by passing in a second argument to setState,
-    // which gets called after the setState is completed
-    await this.setState({
-      themeName: themeName,
-      themes: this.state.themes.concat([themeName]),
-    });
-    //And save into localStorage
-    // Tiffany Note: I think pushing your entire state into here is redundant and causes your data structure to be weirdly nested.
-    // The only thing that should go in this array are an array of themes, which are {color, themeName}
-    // They all currently have a nested themes property in there.
-    themes.push(this.state);
-    localStorage.setItem("themes", JSON.stringify(themes));
-    alert(`${themeName} was successfuly saved into local storage!`);
-  };
-
-  // Tiffany Note: Split this out into two functions instead of looking at textContent of the button to figure out what each button is doing
-  // because it is presentation data and overly complicates its function (line 82 onwards)
-  handleLoadAndDelete = (e) => {
-    // Tiffany Note: In order to get input value, you can place a ref like described on line 51
-    const loadThemeName = e.target.form[5].value; //value from select drop down
-    const localThemes = JSON.parse(localStorage.getItem("themes")); //Array of all themes in localStorage
-    const loadThemeIndex = localThemes.findIndex((elem) => {
-      return elem.themeName === loadThemeName;
-    });
-
-    switch (e.target.textContent) {
-      case "Load":
-        this.setState({
-          colors: localThemes[loadThemeIndex].colors,
-          themeName: localThemes[loadThemeIndex].themeName,
-        });
-        break;
-
-      case "Delete":
-        //Prevent deletion of Default Theme
-        if (localThemes[loadThemeIndex].themeName === "Default Theme") {
-          alert("Default cannot be deleted");
-          break;
-        }
-        const themesIndex = this.state.themes.findIndex(
-          (elem) => elem === localThemes[loadThemeIndex].themeName
-        );
-        //Remove theme name from state and localStorage
-        let newThemes = [...this.state.themes];
-        newThemes.splice(themesIndex, 1);
-        localThemes.splice(loadThemeIndex, 1);
-        localStorage.setItem("themes", JSON.stringify(localThemes));
-        this.setState({ themes: newThemes });
-        break;
-
-      default:
-        // Tiffany Note: If you split out the two functionalities, you will never have this case
-        console.log("Button says something other than 'Load' or 'Delete'");
-    }
-  };
-
-  handleChange = (event) => {
-    // Tiffany Note: in order to get the element type value, it's preferred not to get things directly
-    // from the DOM but to shift your selected state. In Controller, I'd have a state for whether
-    // Complementary or Single Tone is selected (you can pass state down from this component too for
-    // access to the variable), and do the work below on that state
-    const invert =
-      document.forms.controller.elements["type"].value === "Complementary";
-    const selectedColor = new ThemeColors(event.target.value, invert);
-
+  handleThemeChange = (newTheme) => {
     this.setState({
-      colors: selectedColor.colors,
+      colors: newTheme,
     });
   };
 
@@ -136,7 +59,7 @@ class App extends Component {
         <Navbar colors={colors} />
         <Controller
           onSubmit={this.handleSave}
-          onChange={this.handleChange}
+          onChange={this.handleThemeChange}
           onClick={this.handleLoadAndDelete}
           colors={colors}
           themeNames={themes}

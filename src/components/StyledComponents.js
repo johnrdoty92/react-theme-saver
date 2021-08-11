@@ -238,25 +238,23 @@ export const StyledFooter = styled.footer.attrs((props) => ({
   }
 `;
 
-export const ColorSwatch = styled.span.attrs((props) => ({
-  style: {
-    background: props.color,
-  },
-}))`
-  display: inline-block;
-  vertical-align: middle;
-  width: 1.1em;
-  height: 1.1em;
-  margin-left: 8px;
-  border: 1px solid black;
-  box-shadow: 2px 2px black;
-`;
+
 
 export const FlexRow = styled.div`
   width: 100%;
   display: flex;
   flex-flow: nowrap row;
   justify-content: space-evenly;
+
+  * {
+    flex-basis: 100%;
+  }
+`;
+export const FlexColumn = styled.div`
+  width: 100%;
+  display: flex;
+  flex-flow: nowrap column;
+  justify-content: center;
 
   * {
     flex-basis: 100%;
