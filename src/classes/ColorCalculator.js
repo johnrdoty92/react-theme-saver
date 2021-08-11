@@ -9,7 +9,6 @@ export default class ThemeColors {
         ? adjustLuminosity(rgb, -0.25, invert)
         : adjustLuminosity(rgb, -0.65),
       faded: adjustSaturation(rgb, 0.5, invert),
-      textColor: rgb[0] + rgb[1] + rgb[2] < 400 ? "white" : "black",
     };
   }
 }

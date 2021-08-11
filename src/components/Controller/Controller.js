@@ -12,20 +12,13 @@ const Controller = (props) => {
       <ThemeListEditor
         colors={props.colors}
         loadTheme={handleLoadColors}
-        themeNames={props.themeNames}
         changeHeader={props.onHeaderChange}
       />
     ) : (
       <p>Sorry, your browser does not support localStorage</p>
     );
   const [colorScheme, setColorScheme] = useState("SingleTone");
-  const [colors, setColors] = useState({
-    theme: "#878787",
-    highlight: "#ececec",
-    shadow1: "#222222",
-    shadow2: "#656565",
-    faded: "#878787",
-  });
+  const [colors, setColors] = useState(props.colors);
 
   //Update colors for all HTML elements
   useEffect(() => {
