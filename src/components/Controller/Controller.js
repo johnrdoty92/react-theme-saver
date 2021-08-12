@@ -11,44 +11,45 @@ const Controller = (props) => {
     typeof Storage !== "undefined" ? (
       <ThemeListEditor
         colors={props.colors}
+        header={props.header}
         loadTheme={handleLoadColors}
         changeHeader={props.onHeaderChange}
       />
     ) : (
       <p>Sorry, your browser does not support localStorage</p>
     );
+    
+  //=======STATE VARIABLES=======
   const [colorScheme, setColorScheme] = useState("SingleTone");
-  const [colors, setColors] = useState(props.colors);
 
-  //Update colors for all HTML elements
-  useEffect(() => {
-    props.onColorChange(colors);
-  }, [colors]);
-  //Update colors after changing color scheme
+  //=======HANDLE CHANGES IN COLOR=======
   useEffect(() => {
     const invert = colorScheme === "Complementary";
-    const newTheme = new ThemeColors(colors.theme, invert);
-    setColors(newTheme.colors);
+    const newTheme = new ThemeColors(props.colors.theme, invert);
+    props.onColorChange(newTheme.colors);
   }, [colorScheme]);
-
   function handleChooseColor(e) {
     const invert = colorScheme === "Complementary";
     const newTheme = new ThemeColors(e.target.value, invert);
-    setColors(newTheme.colors);
+    props.onColorChange(newTheme.colors);
   }
   function handleChooseScheme(e) {
     setColorScheme(e.target.value);
   }
   function handleLoadColors(colors) {
-    setColors(colors);
+    props.onColorChange(colors);
   }
 
   return (
     <FullContainer area="controller">
-      <StyledForm colors={colors} name="controller">
+      <StyledForm
+        colors={props.colors}
+        name="controller"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <ColorScheme onChange={handleChooseScheme} />
         <ChooseColor onChange={handleChooseColor} />
-        <ColorSwatchDisplay colors={colors} />
+        <ColorSwatchDisplay colors={props.colors} />
         {themeListEditor}
       </StyledForm>
     </FullContainer>

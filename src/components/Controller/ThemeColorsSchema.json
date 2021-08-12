@@ -1,0 +1,40 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "title": "Theme Colors",
+    "description": "Array of five hex colors and a theme name groupings",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "themeName": {"type":"string"},
+            "colors": {
+                "type":"object",
+                "properties":{
+                    "theme":{
+                        "type":"string",
+                        "pattern":"^#[0-9a-fA-F]{6}$"
+                        },
+                    "highlight":{
+                        "type":"string",
+                        "pattern":"^#[0-9a-fA-F]{6}$"
+                        },
+                    "shadow1":{
+                        "type":"string",
+                        "pattern":"^#[0-9a-fA-F]{6}$"
+                        },
+                    "shadow2":{
+                        "type":"string",
+                        "pattern":"^#[0-9a-fA-F]{6}$"
+                        },
+                    "faded":{
+                        "type":"string",
+                        "pattern":"^#[0-9a-fA-F]{6}$"
+                        }
+                    },
+                    "required": ["theme", "highlight", "shadow1", "shadow2", "faded"]
+            }
+        },
+        "additionalProperties": false,
+        "required": ["themeName", "colors"]
+    }
+}

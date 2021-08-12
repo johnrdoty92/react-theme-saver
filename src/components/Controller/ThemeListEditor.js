@@ -1,10 +1,27 @@
 import { useRef, useState } from "react";
 import { FlexRow } from "../StyledComponents";
-//props.colors has all the color data to be pushed into local state
+import defaultTheme from "./DefaultTheme";
+const validate = require("jsonschema").validate;
+const schema = require("./ThemeColorsSchema.json");
+
+//Checks for invalid data stored in localStorage.themes
+function validateStorage() {
+  if (!localStorage?.themes) {
+    console.log("Creating default theme...");
+    localStorage.setItem("themes", JSON.stringify(defaultTheme));
+  }
+  const themesAreValid = validate(JSON.parse(localStorage.themes), schema, {
+    required: true,
+  }).valid;
+  if (!themesAreValid) {
+    console.log("Reverting back to default...");
+    localStorage.setItem("themes", JSON.stringify(defaultTheme));
+  }
+}
 const ThemeListEditor = (props) => {
+  validateStorage();
   const selectInputRef = useRef();
   const [themeName, setThemeName] = useState("");
-  //If there is not themes object in localStorage, create the default, othrewise use what's there
   const [themeNameList, setThemeNameList] = useState(
     JSON.parse(localStorage.themes).map((theme) => theme.themeName)
   );
@@ -17,6 +34,7 @@ const ThemeListEditor = (props) => {
   });
 
   function handleSaveTheme() {
+    validateStorage();
     const themes = JSON.parse(localStorage.getItem("themes"));
     //Checks if theme name already exists
     if (themes.some((element) => element.themeName === themeName)) {
@@ -34,18 +52,21 @@ const ThemeListEditor = (props) => {
   }
 
   function handleLoadTheme() {
-    //Get all the themes
+    validateStorage();
     const localThemes = JSON.parse(localStorage.getItem("themes"));
-    //Find the one with the same name as the select
     const themeToLoad = localThemes.find((elem) => {
       return elem.themeName === selectInputRef.current.value;
     });
-    //Once theme is pulled from local storage, pass it to Controller
-    props.loadTheme(themeToLoad.colors);
-    props.changeHeader(themeToLoad.themeName);
+    if (themeToLoad) {
+      props.loadTheme(themeToLoad.colors);
+      props.changeHeader(themeToLoad.themeName);
+      return;
+    }
+    alert("Something went wrong. Please refresh and try again");
   }
 
   function handleDeleteTheme() {
+    validateStorage();
     //Prevent deletion of Default Theme
     if (selectInputRef.current.value === "Default Theme") {
       alert("Default cannot be deleted");
@@ -60,7 +81,7 @@ const ThemeListEditor = (props) => {
     //Update localStorage and themeNameList for select input
     localStorage.setItem("themes", JSON.stringify(filteredThemes));
     setThemeNameList(filteredThemes.map((theme) => theme.themeName));
-    alert(`"${selectInputRef.current.value}" was deleted!`)
+    alert(`"${selectInputRef.current.value}" was deleted!`);
   }
 
   return (
