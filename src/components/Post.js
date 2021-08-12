@@ -1,4 +1,6 @@
-import { StyledTextBlock, StyledPost, FullContainer } from "./StyledComponents";
+import styled from "styled-components";
+import { getTextColor } from "../classes/ColorCalculator";
+import { FullContainer } from "./StyledComponents";
 
 const Post = (props) => {
   return (
@@ -35,5 +37,22 @@ const Post = (props) => {
     </FullContainer>
   );
 };
-
 export default Post;
+
+//=============STYLED COMPONENTS============
+const StyledPost = styled.div`
+  padding: 1rem;
+`;
+const StyledTextBlock = styled.div.attrs((props) => ({
+  style: {
+    background: props.colors.highlight,
+    color: getTextColor(props.colors.highlight),
+    borderLeft: `5px solid ${props.colors.shadow2}`,
+  },
+}))`
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+`;

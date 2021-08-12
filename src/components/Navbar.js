@@ -1,5 +1,7 @@
 import React from "react";
-import { StyledNavbar, NavItem } from "./StyledComponents";
+import styled from "styled-components";
+import { getTextColor } from "../classes/ColorCalculator";
+
 export default function Navbar(props) {
   return (
     <StyledNavbar
@@ -16,3 +18,45 @@ export default function Navbar(props) {
     </StyledNavbar>
   );
 }
+
+//=============STYLED COMPONENTS============
+const StyledNavbar = styled.ul.attrs((props) => ({
+  style: {
+    background: props.bgColor,
+    color: getTextColor(props.bgColor),
+  },
+}))`
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  justify-content: flex-end;
+  grid-area: nav;
+  margin: 0;
+  padding-right: 1em;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+`;
+
+const NavItem = styled.li`
+  display: block;
+  height: 100%;
+  line-height: 2em;
+  a {
+    padding: 0 1em;
+    display: block;
+    height: 100%;
+    width: 100%;
+    color: inherit;
+    text-decoration: none;
+    transition: 0.25s ease;
+  }
+  a:hover {
+    color: white;
+    background: rgba(0, 0, 0, 0.25);
+  }
+  a:active {
+    color: black;
+    background: rgba(255, 255, 255, 0.25);
+  }
+`;
